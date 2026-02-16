@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     id("com.android.application")
     id("kotlin-android")
@@ -6,10 +8,10 @@ plugins {
 }
 
 // Load local.properties to get API keys
-val localProperties = java.util.Properties()
 val localPropertiesFile = rootProject.file("local.properties")
+val localProperties = Properties()
 if (localPropertiesFile.exists()) {
-    localPropertiesFile.inputStream().use { localProperties.load(it) }
+    localProperties.load(localPropertiesFile.inputStream())
 }
 
 val mapsApiKey: String = localProperties.getProperty("MAPS_API_KEY") ?: ""
