@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:swiri/core/helpers/consts.dart';
 import 'package:swiri/core/helpers/shared_pref_helper.dart';
 import 'package:swiri/core/networking/api_error_handler.dart';
@@ -19,7 +21,13 @@ class AuthRepository {
       // Save token to secure storage
       await SharedPrefHelper.setSecuredString(
         SharedPrefKeys.userToken,
-        response.accessToken,
+        response.token,
+      );
+
+      // Save user data to shared preferences
+      await SharedPrefHelper.setData(
+        SharedPrefKeys.userData,
+        jsonEncode(response.user.toJson()),
       );
 
       return ApiResult.success(response);
@@ -35,7 +43,13 @@ class AuthRepository {
       // Save token to secure storage
       await SharedPrefHelper.setSecuredString(
         SharedPrefKeys.userToken,
-        response.accessToken,
+        response.token,
+      );
+
+      // Save user data to shared preferences
+      await SharedPrefHelper.setData(
+        SharedPrefKeys.userData,
+        jsonEncode(response.user.toJson()),
       );
 
       return ApiResult.success(response);

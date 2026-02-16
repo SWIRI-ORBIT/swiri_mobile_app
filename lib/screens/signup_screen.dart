@@ -54,7 +54,7 @@ class _SignupScreenState extends State<SignupScreen> {
       body: BlocListener<SignupCubit, SignupState>(
         listener: (context, state) {
           if (state is SignupSuccess) {
-            context.go('/home');
+            context.go(Routes.main);
           } else if (state is SignupError) {
             ErrorDialog.show(context, state.message);
           }

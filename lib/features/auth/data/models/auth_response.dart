@@ -1,13 +1,28 @@
-class AuthResponse {
-  final String accessToken;
-  final String refreshToken;
+import 'package:swiri/features/auth/data/models/user.dart';
 
-  AuthResponse({required this.accessToken, required this.refreshToken});
+class AuthResponse {
+  final bool success;
+  final int statusCode;
+  final String message;
+  final String token;
+  final User user;
+
+  AuthResponse({
+    required this.success,
+    required this.statusCode,
+    required this.message,
+    required this.token,
+    required this.user,
+  });
 
   factory AuthResponse.fromJson(Map<String, dynamic> json) {
+    final data = json['data'] ?? {};
     return AuthResponse(
-      accessToken: json['accessToken'] ?? json['access_token'] ?? '',
-      refreshToken: json['refreshToken'] ?? json['refresh_token'] ?? '',
+      success: json['success'] ?? false,
+      statusCode: json['statusCode'] ?? 0,
+      message: json['message'] ?? '',
+      token: data['token'] ?? '',
+      user: User.fromJson(data['user'] ?? {}),
     );
   }
 }

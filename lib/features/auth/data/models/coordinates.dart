@@ -1,0 +1,22 @@
+class Coordinates {
+  final String type;
+  final List<double> coordinates; // [longitude, latitude]
+
+  Coordinates({required this.type, required this.coordinates});
+
+  factory Coordinates.fromJson(Map<String, dynamic> json) {
+    return Coordinates(
+      type: json['type'] ?? 'Point',
+      coordinates: List<double>.from(
+        (json['coordinates'] as List<dynamic>? ?? []).cast<double>(),
+      ),
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {'type': type, 'coordinates': coordinates};
+  }
+
+  double get longitude => coordinates.isNotEmpty ? coordinates[0] : 0.0;
+  double get latitude => coordinates.length > 1 ? coordinates[1] : 0.0;
+}

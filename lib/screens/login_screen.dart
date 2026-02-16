@@ -45,7 +45,7 @@ class _LoginScreenState extends State<LoginScreen> {
       body: BlocListener<LoginCubit, LoginState>(
         listener: (context, state) {
           if (state is LoginSuccess) {
-            context.go('/home');
+            context.go(Routes.main);
           } else if (state is LoginError) {
             ErrorDialog.show(context, state.message);
           }
